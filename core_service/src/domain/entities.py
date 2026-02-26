@@ -20,7 +20,7 @@ class Componente:
     codigo_impreso: str = "" # El código de la máquina
     tipo: str = "llanta" # 'llanta', 'bateria', 'frenos'
     posicion: str = "" # 'del_der', 'tras_izq', etc
-    mediciones: List[Medicion] = field(default_factory=list)
+    mediciones: List[Medicion] = field(default_factory=list) # type: ignore
     
 @dataclass
 class Vehiculo:
@@ -32,5 +32,5 @@ class Vehiculo:
     anio: int = 0
     tipo_vehiculo: str = "auto" # 'moto', 'auto', 'camioneta'
     kilometraje_total: int = 0
-    componentes: List[Componente] = field(default_factory=list)
+    componentes: List[Componente] = field(default_factory=list) # type: ignore
     
