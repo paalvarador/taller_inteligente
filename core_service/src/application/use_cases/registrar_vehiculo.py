@@ -5,7 +5,7 @@ class RegistrarVehiculoUseCase:
     def __init__(self, vehiculo_repo: IVehiculoRepository):
         self.vehiculo_repo = vehiculo_repo
         
-    def execute(self, placa: str, marca: str, modelo: str, anio: int, kilometraje: int):
+    def execute(self, placa: str, marca: str, modelo: str, anio: int, kilometraje: int): # type: ignore
         # 1. Regla de negocio: Validar que la placa no este vacia
         if not placa:
             raise ValueError("La placa es obligatoria")
@@ -27,4 +27,4 @@ class RegistrarVehiculoUseCase:
         )
         
         # 4. Guardar
-        return self.vehiculo_repo.save(nuevo_vehiculo)
+        return self.vehiculo_repo.save_vehiculo(nuevo_vehiculo)

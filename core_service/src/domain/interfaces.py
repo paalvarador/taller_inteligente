@@ -3,7 +3,7 @@ from .entities import Vehiculo, Medicion
 
 class IVehiculoRepository(ABC):
     @abstractmethod
-    def save(self, vehiculo: Vehiculo):
+    def save_vehiculo(self, vehiculo: Vehiculo):
         pass
     
     @abstractmethod
@@ -17,7 +17,7 @@ class IVehiculoRepository(ABC):
 
 class IMedicionRepository(ABC):
     @abstractmethod
-    def save(self, medicion: Medicion):
+    def save_medicion(self, medicion: Medicion, placa: str):
         pass
     
     

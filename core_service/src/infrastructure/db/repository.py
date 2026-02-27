@@ -1,30 +1,44 @@
-from domain.entities import Vehiculo
-from domain.interfaces import IVehiculoRepository
+from sqlalchemy.orm import Session
+from domain.entities import Vehiculo, Medicion
+from domain.interfaces import IVehiculoRepository, IMedicionRepository
+from .models import VehiculoModel, MedicionModel
 
-class MemoryVehiculoRepository(IVehiculoRepository):
-    def __init__(self):
-        self.vehiculos = []
+class PostgresRepository(IVehiculoRepository, IMedicionRepository):
+    def __init__(self, db: Session):
+        self.db = db
         
-    def save(self, vehiculo: Vehiculo): # type: ignore
-        self.vehiculos.append(vehiculo) # type: ignore
+    def save_vehiculo(self, vehiculo: Vehiculo): # type: ignore
+        db_vehiculo = VehiculoModel(
+            id=vehiculo.id,
+            placa=vehiculo.placa,
+            marca=vehiculo.marca,
+            modelo=vehiculo.modelo,
+            anio=vehiculo.anio,
+            kilometraje_total=vehiculo.kilometraje_total
+        )
+        self.db.add(db_vehiculo)
+        self.db.commit()
+        self.db.refresh(db_vehiculo)
         return vehiculo
 
-    def get_by_placa(self, placa: str) -> Vehiculo:
-        for v in self.vehiculos: # type: ignore
-            if v.placa == placa.upper(): # type: ignore
-                return v # type: ignore
-            
-        return None # type: ignore
+    def get_by_placa(self, placa: str):
+        return self.db.query(VehiculoModel).filter(VehiculoModel.placa == placa.upper()).first()
 
-    def update_km(self, placa: str, nuevo_km: int): # type: ignore
-        vehiculo = self.get_by_placa(placa)
-        if vehiculo:
-            vehiculo.kilometraje_total = nuevo_km
-        
-        return vehiculo
-    
-    def save_medicion(self, medicion: Medicion): # type: ignore
-        if not hasattr(self, "mediciones"):
-            self.mediciones = []
-        self.mediciones.append(self.medicion) # type: ignore
-        return medicion # type: ignore
+    def update_km(self, placa: str, nuevo_km: int):
+        db_vehiculo = self.get_by_placa(placa)
+        if db_vehiculo:
+            db_vehiculo.kilometraje_total = nuevo_km # type: ignore
+            self.db.commit()
+        return db_vehiculo
+
+    def save_medicion(self, medicion: Medicion, placa: str): # type: ignore
+        db_medicion = MedicionModel(
+            id=medicion.id,
+            componente_id=medicion.componente_id,
+            valor_metrico=medicion.valor_metrico,
+            kilometraje_momento=medicion.kilometraje_momento,
+            vehiculo_placa=placa.upper()
+        )
+        self.db.add(db_medicion)
+        self.db.commit()
+        return medicion

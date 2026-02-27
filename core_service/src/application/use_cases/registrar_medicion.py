@@ -23,7 +23,7 @@ class RegistrarMedicionUseCase:
         )
         
         # 3. Guardar la medicion
-        self.medicion_repo.save(nueva_medicion)
+        self.medicion_repo.save_medicion(nueva_medicion, placa)
         
         # 4. Actualizar el kilometraje global del vehiculo
         self.vehiculo_repo.update_km(placa, kilometraje)
