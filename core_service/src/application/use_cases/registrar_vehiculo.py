@@ -5,10 +5,13 @@ class RegistrarVehiculoUseCase:
     def __init__(self, vehiculo_repo: IVehiculoRepository):
         self.vehiculo_repo = vehiculo_repo
         
-    def execute(self, placa: str, marca: str, modelo: str, anio: int):
+    def execute(self, placa: str, marca: str, modelo: str, anio: int, kilometraje: int):
         # 1. Regla de negocio: Validar que la placa no este vacia
         if not placa:
             raise ValueError("La placa es obligatoria")
+
+        if kilometraje is None or kilometraje < 0: # type: ignore
+            raise ValueError("El kilometraje inicial es obligatorio y debe ser mayor o igual a 0")
     
         # 2. Verificar si ya existe (Evitar duplicados)
         vehiculo_existente = self.vehiculo_repo.get_by_placa(placa)
