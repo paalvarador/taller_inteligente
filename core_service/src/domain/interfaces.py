@@ -20,4 +20,8 @@ class IMedicionRepository(ABC):
     def save_medicion(self, medicion: Medicion, placa: str):
         pass
     
+    @abstractmethod
+    def get_by_vehiculo(self, placa: str) -> list[Medicion]:
+        pass
+    
     
