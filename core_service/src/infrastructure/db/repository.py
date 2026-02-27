@@ -15,3 +15,16 @@ class MemoryVehiculoRepository(IVehiculoRepository):
                 return v # type: ignore
             
         return None # type: ignore
+
+    def update_km(self, placa: str, nuevo_km: int): # type: ignore
+        vehiculo = self.get_by_placa(placa)
+        if vehiculo:
+            vehiculo.kilometraje_total = nuevo_km
+        
+        return vehiculo
+    
+    def save_medicion(self, medicion: Medicion): # type: ignore
+        if not hasattr(self, "mediciones"):
+            self.mediciones = []
+        self.mediciones.append(self.medicion) # type: ignore
+        return medicion # type: ignore
