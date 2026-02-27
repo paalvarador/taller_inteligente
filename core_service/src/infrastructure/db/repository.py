@@ -42,3 +42,11 @@ class PostgresRepository(IVehiculoRepository, IMedicionRepository):
         self.db.add(db_medicion)
         self.db.commit()
         return medicion
+
+    def get_by_vehiculo(self, placa: str) -> list[Medicion]:
+        # Buscamos todas las mediciones que coinciden con la placa
+        # Las ordenamos por fecha de registro (ascendente)
+        return self.db.query(MedicionModel)\
+            .filter(MedicionModel.vehiculo_placa == placa.upper())\
+            .order_by(MedicionModel.fecha_registro.asc())\
+            .all() # type: ignore
