@@ -1,7 +1,16 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import List, Optional
+from enum import Enum
 import uuid
+
+# Enums
+class EstadoEnum(str, Enum):
+    NUEVO = "Nuevo"
+    BUENO = "Bueno"
+    REGULAR = "Regular"
+    CRITICO = "Crítico"
+    DANADO = "Dañado"
 
 @dataclass
 class Medicion:
@@ -9,7 +18,7 @@ class Medicion:
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
     componente_id: str = ""
     valor_metrico: float = 0.0 # mm de profundidad o voltaje
-    kilometraje_momento: int = 0
+    kilometraje: int = 0
     fecha_registro: datetime = field(default_factory=datetime.now)
     foto_url: Optional[str] = None
 
@@ -31,6 +40,6 @@ class Vehiculo:
     modelo: str = ""
     anio: int = 0
     tipo_vehiculo: str = "auto" # 'moto', 'auto', 'camioneta'
-    kilometraje_total: int = 0
+    kilometraje: int = 0
     componentes: List[Componente] = field(default_factory=list) # type: ignore
     

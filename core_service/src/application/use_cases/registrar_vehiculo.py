@@ -23,6 +23,7 @@ class RegistrarVehiculoUseCase:
             placa=placa.upper(),
             marca=marca,
             modelo=modelo,
+            kilometraje=kilometraje,
             anio=anio
         )
         

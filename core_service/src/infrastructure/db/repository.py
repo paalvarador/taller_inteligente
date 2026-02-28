@@ -14,7 +14,7 @@ class PostgresRepository(IVehiculoRepository, IMedicionRepository):
             marca=vehiculo.marca,
             modelo=vehiculo.modelo,
             anio=vehiculo.anio,
-            kilometraje_total=vehiculo.kilometraje_total
+            kilometraje=vehiculo.kilometraje
         )
         self.db.add(db_vehiculo)
         self.db.commit()
@@ -27,7 +27,7 @@ class PostgresRepository(IVehiculoRepository, IMedicionRepository):
     def update_km(self, placa: str, nuevo_km: int):
         db_vehiculo = self.get_by_placa(placa)
         if db_vehiculo:
-            db_vehiculo.kilometraje_total = nuevo_km # type: ignore
+            db_vehiculo.kilometraje = nuevo_km # type: ignore
             self.db.commit()
         return db_vehiculo
 
@@ -36,7 +36,7 @@ class PostgresRepository(IVehiculoRepository, IMedicionRepository):
             id=medicion.id,
             componente_id=medicion.componente_id,
             valor_metrico=medicion.valor_metrico,
-            kilometraje_momento=medicion.kilometraje_momento,
+            kilometraje=medicion.kilometraje,
             vehiculo_placa=placa.upper()
         )
         self.db.add(db_medicion)

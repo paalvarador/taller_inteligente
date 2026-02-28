@@ -12,14 +12,14 @@ class RegistrarMedicionUseCase:
         if not vehiculo:
             raise ValueError("El vehículo no existe.")
         
-        if kilometraje < vehiculo.kilometraje_total:
-            raise ValueError(f"Kilometraje inválido. El último registrado fue {vehiculo.kilometraje_total} km.")
+        if kilometraje < vehiculo.kilometraje:
+            raise ValueError(f"Kilometraje inválido. El último registrado fue {vehiculo.kilometraje} km.")
         
         # 2. Crear la entidad de la medicion
         nueva_medicion = Medicion(
             componente_id=codigo_neumatico,
             valor_metrico=valor_mm,
-            kilometraje_momento=kilometraje
+            kilometraje=kilometraje
         )
         
         # 3. Guardar la medicion
