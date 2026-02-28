@@ -2,7 +2,7 @@ from sqlalchemy import Column, String, Integer, Float, DateTime, ForeignKey, Enu
 from sqlalchemy.orm import declarative_base, relationship
 from datetime import datetime
 import uuid
-from core_service.src.domain.entities import EstadoEnum
+from core_service.src.domain.entities import EstadoEnum, TipoVehiculoEnum
 
 Base = declarative_base()
 
@@ -14,6 +14,7 @@ class VehiculoModel(Base):
     marca = Column(String)
     modelo = Column(String)
     anio = Column(Integer)
+    tipo_vehiculo = Column(SQLEnum(TipoVehiculoEnum), default=TipoVehiculoEnum.AUTO)
     kilometraje = Column(Integer, default=0)
     created_at = Column(DateTime, default=datetime.now)
     

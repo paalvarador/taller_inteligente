@@ -1,11 +1,11 @@
-from domain.entities import Vehiculo
+from domain.entities import Vehiculo, TipoVehiculoEnum
 from domain.interfaces import IVehiculoRepository
 
 class RegistrarVehiculoUseCase:
     def __init__(self, vehiculo_repo: IVehiculoRepository):
         self.vehiculo_repo = vehiculo_repo
         
-    def execute(self, placa: str, marca: str, modelo: str, anio: int, kilometraje: int): # type: ignore
+    def execute(self, placa: str, marca: str, modelo: str, anio: int, kilometraje: int, tipo_vehiculo: TipoVehiculoEnum): # type: ignore
         # 1. Regla de negocio: Validar que la placa no este vacia
         if not placa:
             raise ValueError("La placa es obligatoria")
@@ -23,6 +23,7 @@ class RegistrarVehiculoUseCase:
             placa=placa.upper(),
             marca=marca,
             modelo=modelo,
+            tipo_vehiculo=tipo_vehiculo,
             kilometraje=kilometraje,
             anio=anio
         )

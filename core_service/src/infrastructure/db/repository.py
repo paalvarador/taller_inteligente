@@ -14,7 +14,8 @@ class PostgresRepository(IVehiculoRepository, IMedicionRepository):
             marca=vehiculo.marca,
             modelo=vehiculo.modelo,
             anio=vehiculo.anio,
-            kilometraje=vehiculo.kilometraje
+            kilometraje=vehiculo.kilometraje,
+            tipo_vehiculo=vehiculo.tipo_vehiculo
         )
         self.db.add(db_vehiculo)
         self.db.commit()
