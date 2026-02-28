@@ -12,6 +12,12 @@ class EstadoEnum(str, Enum):
     CRITICO = "Crítico"
     DANADO = "Dañado"
 
+class TipoVehiculoEnum(str, Enum):
+    AUTO = "Auto"
+    MOTO = "Moto"
+    CAMIONETA = "Camioneta"
+    CAMION = "Camion"
+
 @dataclass
 class Medicion:
     """Representa una toma de datos de un componente (ej. mm de una llanada)"""
@@ -39,7 +45,7 @@ class Vehiculo:
     marca: str = ""
     modelo: str = ""
     anio: int = 0
-    tipo_vehiculo: str = "auto" # 'moto', 'auto', 'camioneta'
+    tipo_vehiculo: TipoVehiculoEnum = TipoVehiculoEnum.AUTO # 'moto', 'auto', 'camioneta'
     kilometraje: int = 0
     componentes: List[Componente] = field(default_factory=list) # type: ignore
     
