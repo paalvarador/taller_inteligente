@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from domain.entities import Vehiculo, Medicion
+from domain.entities import Vehiculo, Medicion, Componente
 from domain.interfaces import IVehiculoRepository, IMedicionRepository
 from .models import VehiculoModel, MedicionModel
 

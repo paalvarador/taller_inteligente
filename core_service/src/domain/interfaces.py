@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from .entities import Vehiculo, Medicion
+from .entities import Vehiculo, Medicion, Componente
 
 class IVehiculoRepository(ABC):
     @abstractmethod
@@ -24,4 +24,11 @@ class IMedicionRepository(ABC):
     def get_by_vehiculo(self, placa: str) -> list[Medicion]:
         pass
     
+class IComponenteRepository(ABC):
+    @abstractmethod
+    def save_componente(self, componente: Componente, placa: str):
+        pass
     
+    @abstractmethod
+    def get_componente_by_codigo(self, codigo: str):
+        pass

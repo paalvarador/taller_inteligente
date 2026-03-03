@@ -26,15 +26,19 @@ class Medicion:
     valor_metrico: float = 0.0 # mm de profundidad o voltaje
     kilometraje: int = 0
     fecha_registro: datetime = field(default_factory=datetime.now)
+    vehiculo_placa: str = ""
     foto_url: Optional[str] = None
 
 @dataclass
 class Componente:
     """Representa una pieza del auto: Llanta, Bateria, etc."""
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
-    codigo_impreso: str = "" # El código de la máquina
+    nombre: str = ""
     tipo: str = "llanta" # 'llanta', 'bateria', 'frenos'
-    posicion: str = "" # 'del_der', 'tras_izq', etc
+    codigo: str = "" # El código de la máquina
+    estado: EstadoEnum = EstadoEnum.NUEVO
+    vehiculo_placa: str = ""
+    foto_url: Optional[str] = None
     mediciones: List[Medicion] = field(default_factory=list) # type: ignore
     
 @dataclass
